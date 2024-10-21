@@ -1,0 +1,42 @@
+/* default.css */
+
+/* グローバルスタイル */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+h2 {
+    text-align: center;
+}
+
+/* スレッド一覧 */
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin: 1rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 新規スレッド作成フォーム */
+form {
+    margin-top: 2rem;
+}
+
+/* メディアクエリ: スマホ */
+@media (max-width: 768px) {
+    /* スマホ用に調整 */
+    h2 {
+        font-size: 1.5rem;
+    }
+    li {
+        margin: 0.5rem 0;
+    }
+    form {
+        margin-top: 1rem;
+    }
+}

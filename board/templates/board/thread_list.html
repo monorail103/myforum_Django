@@ -1,0 +1,30 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>スレッド一覧</title>
+    <link rel="stylesheet" href="{% static 'default.css' %}">
+</head>
+<body>
+    <h2>スレッド一覧</h2>
+    <ul>
+        {% for item in thread_data %}
+            <li>
+                <a href="{% url 'thread_detail' item.thread.pk %}">{{ item.thread.title }}</a><br />
+                書き込み数: {{ item.post_count }}<br />
+                最終投稿: {{item.last_post}}
+                ID: {{ item.user_id }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>新しいスレッドを作成</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">作成</button>
+    </form>
+</body>
+</html>

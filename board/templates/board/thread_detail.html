@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>スレッド一覧</title>
+    <link rel="stylesheet" href="{% static 'default.css' %}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#post-"]');
+            links.forEach(link => {
+                link.addEventListener('mouseover', function(event) {
+                    const postId = this.getAttribute('href').substring(1);
+                    const tooltip = document.getElementById('tooltip-' + postId.split('-')[1]);
+                    if (tooltip) {
+                        tooltip.style.display = 'block';
+                        tooltip.style.left = event.pageX + 'px';
+                        tooltip.style.top = event.pageY + 10 + 'px';
+                    }
+                });
+        
+                link.addEventListener('mouseout', function() {
+                    const postId = this.getAttribute('href').substring(1);
+                    const tooltip = document.getElementById('tooltip-' + postId.split('-')[1]);
+                    if (tooltip) {
+                        tooltip.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        .tooltip {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ thread.title }}</h1>
+    <ul>
+        {% for post in post_data %}
+            <li id="post-{{ post.post_number }}">
+                <p>{{post.post_number}} {{ post.author }} ({{ post.created_at }}) ID:{{ post.user_id }}</p>
+                <p>{{ post.content|safe }}</p>
+                
+                <div id="tooltip-{{ post.post_number }}" class="tooltip">
+                        <p>{{ post.author }} ({{ post.created_at }}) ID:{{ post.user_id }}</p>
+                        {{ post.content|safe }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'thread_list' %}">スレッド一覧に戻る</a>
+
+    <h1>新しい書き込みを追加</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">追加</button>
+    </form>
+</body>
+</html>
