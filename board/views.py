@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.cache import cache
-from .utils import create_id
+from .utils import create_id, calculate_momentum, get_momentum_label
 import re
 import datetime
 from .models import Thread, Post
@@ -24,13 +24,19 @@ def thread_list(request):
 
     # 表示用スレッドデータを作成
     for thread in threads:
-        if thread.is_archived == 0:
+        momentum = calculate_momentum(thread)
+        if momentum < 0.001:
+            thread.is_archived = 1
+            thread.save()
+        else:
             thread_data.append({
                 'thread': thread,
                 'post_count': thread.post_set.count(),
                 'last_post': thread.post_set.last().created_at.strftime('%Y-%m-%d %H:%M:%S'),
-                'user_id': thread.user_id
+                'user_id': thread.user_id,
+                'momentum': get_momentum_label(momentum)
             })
+    thread_data.sort(key=lambda x: x['momentum'], reverse=True)
     cache.set('thread_data', thread_data, 60)
     return render(request, 'board/thread_list.html', {'form': form, 'thread_data': thread_data})
 
@@ -65,6 +71,7 @@ def thread_detail(request, pk):
             form = PostForm()
 
     posts = thread.post_set.all() 
+    is_archived = thread.is_archived
 
     post_data = []
 
@@ -78,7 +85,8 @@ def thread_detail(request, pk):
             'post': post,
             'post_number': i + 1,
             'user_id': post.user_id,
-            'created_at': post.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'mail' : post.mail,
+            'created_at': post.created_at.strftime('%Y年%m月%d日 %H:%M:%S'),
             'content' : post.content
         })
 

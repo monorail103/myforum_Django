@@ -44,10 +44,13 @@
 </head>
 <body>
     <h1>{{ thread.title }}</h1>
+    <a href="{% url 'thread_list' %}"><button class="ac">スレッド一覧</button></a>
+    <button class="openModalBtn">書き込む</button>
     <ul>
+        <!-- 名前<>メール欄<>年/月/日（曜） 時:分:秒.下二桁（無い板もある） ID:hogehoge0<> 本文 <> -->
         {% for post in post_data %}
             <li id="post-{{ post.post_number }}">
-                <p>{{post.post_number}} {{ post.author }} ({{ post.created_at }}) ID:{{ post.user_id }}</p>
+                <span>{{post.post_number}} {{ post.author }} ({{post.mail}}) {{ post.created_at }} ID:{{ post.user_id }}</span>
                 <p>{{ post.content|safe }}</p>
                 
                 <div id="tooltip-{{ post.post_number }}" class="tooltip">
@@ -57,13 +60,20 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'thread_list' %}">スレッド一覧に戻る</a>
+    <button class="openModalBtn">書き込む</button>
 
-    <h1>新しい書き込みを追加</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">追加</button>
-    </form>
+    <div id="newThreadModal" class="modal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>書き込む</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">作成</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'modal.js' %}"></script>
 </body>
 </html>

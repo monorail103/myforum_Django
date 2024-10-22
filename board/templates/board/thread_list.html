@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -9,22 +8,34 @@
     <link rel="stylesheet" href="{% static 'default.css' %}">
 </head>
 <body>
+    
+    <button id="openModalBtn">新しいスレッドを作成</button>
     <h2>スレッド一覧</h2>
     <ul>
         {% for item in thread_data %}
-            <li>
-                <a href="{% url 'thread_detail' item.thread.pk %}">{{ item.thread.title }}</a><br />
-                書き込み数: {{ item.post_count }}<br />
-                最終投稿: {{item.last_post}}
-                ID: {{ item.user_id }}
-            </li>
+            <a href="{% url 'thread_detail' item.thread.pk %}">
+                <li>
+                    {{ item.thread.title }}<br />
+                    <p>書き込み数: {{ item.post_count }}<br />
+                    勢い: {{item.momentum}}
+                    ID: {{ item.user_id }}</p>
+                </li>
+            </a>
         {% endfor %}
     </ul>
-    <h2>新しいスレッドを作成</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">作成</button>
-    </form>
+    <hr>
+
+    <div id="newThreadModal" class="modal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>新しいスレッドを作成</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">作成</button>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'modal.js' %}"></script>
 </body>
 </html>
