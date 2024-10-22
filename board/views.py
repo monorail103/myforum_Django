@@ -84,6 +84,7 @@ def thread_detail(request, pk):
         post_data.append({
             'post': post,
             'post_number': i + 1,
+            'author': post.author,
             'user_id': post.user_id,
             'mail' : post.mail,
             'created_at': post.created_at.strftime('%Y年%m月%d日 %H:%M:%S'),

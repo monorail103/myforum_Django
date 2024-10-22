@@ -9,14 +9,14 @@
 </head>
 <body>
     
-    <button id="openModalBtn">新しいスレッドを作成</button>
+    <button class="openModalBtn">新しいスレッドを作成</button>
     <h2>スレッド一覧</h2>
     <ul>
         {% for item in thread_data %}
             <a href="{% url 'thread_detail' item.thread.pk %}">
                 <li>
                     {{ item.thread.title }}<br />
-                    <p>書き込み数: {{ item.post_count }}<br />
+                    <p class="metathread">書き込み数: {{ item.post_count }}
                     勢い: {{item.momentum}}
                     ID: {{ item.user_id }}</p>
                 </li>
@@ -24,7 +24,7 @@
         {% endfor %}
     </ul>
     <hr>
-
+    掲示板の説明
     <div id="newThreadModal" class="modal">
         <div class="modal-content">
             <span class="closeBtn">&times;</span>

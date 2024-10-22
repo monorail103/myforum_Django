@@ -2,13 +2,17 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
-    margin: 0;
     padding: 20px;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
+}
+
+.metathread {
+    color: #4d4d4d;
+    font-size: 0.8em;
 }
 
 li {
@@ -21,9 +25,15 @@ li {
 }
 
 button {
+    background-color: dodgerblue;
+    color: white; /* 文字色を白に */
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 15px 20px; /* パディングを追加 */
+    border: none; /* ボーダーを削除 */
+    border-radius: 5px; /* 角を丸く */
+    cursor: pointer; /* カーソルをポインターに */
+    font-size: 1.3em; /* フォントサイズを大きく */
+    margin-bottom: 20px; /* 下にマージンを追加 */
 }
 
 input[type="text"], input[type="email"], textarea {
@@ -75,8 +85,8 @@ span {
     width: 80%;
 }
 
-.closeBtn, .ac {
-    color: #aaa;
+.closeBtn {
+    color: #000000;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -89,12 +99,18 @@ span {
     cursor: pointer;
 }
 
+.ac {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 @media screen and (min-width: 960px) {
+
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
-        margin: 0;
-        padding: 20px;
+        margin-left: 20%;
+        margin-right: 20%;
     }
 
     h1 {
@@ -115,6 +131,17 @@ span {
 
     }
 
+    /* 各書き込み */
+    .ps {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        height: 6em;
+        font-size: 1.2em;
+    }
+
     a {
         text-decoration: none;
         color: #007bff;
@@ -129,9 +156,9 @@ span {
     }
 
     span {
-        color: #000000;
+        color: #005043;
         font-size: 1em;
-        font-style: initial;
+        font-family: Arial, sans-serif;
     }
 
     form {
@@ -203,5 +230,18 @@ span {
 
     .openModalBtn:hover {
         background-color: #45a049; /* ホバー時の色を変更 */
+    }
+
+    /* 戻るボタンの基本スタイル */
+    .ac {
+        background-color: #7700ff; /* 緑色 */
+        color: white; /* 文字色を白に */
+        padding: 15px 20px; /* パディングを追加 */
+        border: none; /* ボーダーを削除 */
+        border-radius: 5px; /* 角を丸く */
+        cursor: pointer; /* カーソルをポインターに */
+        font-size: 16px; /* フォントサイズを大きく */
+        margin-bottom: 20px; /* 下にマージンを追加 */
+        height: 4em;
     }
 }

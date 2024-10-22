@@ -43,13 +43,13 @@
     </style>
 </head>
 <body>
-    <h1>{{ thread.title }}</h1>
     <a href="{% url 'thread_list' %}"><button class="ac">スレッド一覧</button></a>
+    <h1>{{ thread.title }}</h1>
     <button class="openModalBtn">書き込む</button>
     <ul>
         <!-- 名前<>メール欄<>年/月/日（曜） 時:分:秒.下二桁（無い板もある） ID:hogehoge0<> 本文 <> -->
         {% for post in post_data %}
-            <li id="post-{{ post.post_number }}">
+            <li id="post-{{ post.post_number }}" class="ps">
                 <span>{{post.post_number}} {{ post.author }} ({{post.mail}}) {{ post.created_at }} ID:{{ post.user_id }}</span>
                 <p>{{ post.content|safe }}</p>
                 
