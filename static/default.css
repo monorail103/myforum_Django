@@ -1,4 +1,6 @@
 /* static/css/thread_list.css */
+
+/* スマホ用のスタイル */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -10,11 +12,13 @@ ul {
     padding: 0;
 }
 
+/* スレ一覧のデータ */
 .metathread {
     color: #4d4d4d;
     font-size: 0.8em;
 }
 
+/* 各種リスト表記 */
 li {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -36,6 +40,7 @@ button {
     margin-bottom: 20px; /* 下にマージンを追加 */
 }
 
+/* モーダルのスタイル */
 input[type="text"], input[type="email"], textarea {
     width: 100%;
     padding: 8px;
@@ -105,6 +110,8 @@ span {
     font-size: 28px;
     font-weight: bold;
 }
+
+/* スマホ用のスタイル　終わり */
 
 @media screen and (min-width: 960px) {
 
